@@ -18,6 +18,13 @@ def tfidf(word, blob, bloblist):
     return tf(word, blob) * idf(word, bloblist)
 
 
+def cos_sim(query, scores):
+    similarity = 0
+    for term in query.keys():
+        similarity += query[term] * scores.get(term, 0)
+    return similarity
+
+
 if __name__ == '__main__':
     import os
     import pymongo

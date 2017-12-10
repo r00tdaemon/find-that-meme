@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ static_url('materialize.min.css') }}" media="screen,projection"/>
+    <script type="text/javascript" src="{{ static_url('jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('materialize.min.js') }}"></script>
+    <style>
+        /* label focus color */
+        .input-field input[type=text]:focus + label {
+            color: orange !important;
+        }
+
+        /* label underline focus color */
+        .input-field input[type=text]:focus {
+            border-bottom: 1px solid orange !important;
+            box-shadow: 0 1px 0 0 orange !important;
+        }
+
+        .page-footer {
+            padding: 0px;
+        }
+
+        .preloader-background {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #eee;
+
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        img {
+            height: 335px;
+            max-width: 440px;
+        }
+
+        .card {
+            height: 440px;
+            width: 440px;
+        }
+
+        .card .card-content {
+            padding: 15px 24px;
+        }
+
+        /*.card.small {*/
+        /*height: auto;*/
+        /*}*/
+
+        /*.card.small.card-content {*/
+        /*height: auto;*/
+        /*}*/
+
+        /*.card.small .card-action {*/
+        /*position: relative;*/
+        /*}*/
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+    </style>
+    <title>Find That meme</title>
+</head>
+<body>
+<header>
+    <nav class="light-blue lighten-1" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="/" class="brand-logo">Find That Meme!</a>
+        </div>
+    </nav>
+</header>
+<main>
+    <div class="preloader-background">
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+        <div class="row">
+            <form class="col s12" action="#" method="post">
+                <div class="row">
+                    <div class="input-field col s6 offset-s3">
+                        <input id="query" name="query" type="text" value="{{query}}"required>
+                        <label for="query">Enter Query</label>
+                    </div>
+                </div>
+                <div class="row center">
+                    <input class="btn-large waves-effect waves-light orange" type="submit" value="submit">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+
+        {% for i,meme in enumerate(memes) %}
+        <!--{% comment from base64 import b64encode %}-->
+        <!--<img src="data:;base64,{% comment b64encode(meme['img']) %}"/>-->
+        <div class="col s12 m4">
+            <div class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="{{meme['url']}}">
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">
+                        Similarity: {{ round(similarity[i][1],5) }}
+                        <i class="material-icons right">more_vert</i></span>
+                    <p><a href="{{meme['url']}}">Open meme</a></p>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">Similarity: {{ round(similarity[i][1],5) }}
+                        <i class="material-icons right">close</i></span>
+                    <p>{{ meme['description'] }}</p>
+                </div>
+            </div>
+        </div>
+        {% end %}
+    </div>
+
+</main>
+<footer class="page-footer orange">
+    <div class="footer-copyright">
+        <div class="container">
+            Made by <a class="orange-text text-lighten-3" href="https://github.com/ujjwal96">Ujjwal Verma</a>
+        </div>
+    </div>
+</footer>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        $('.preloader-background').delay(1700).fadeOut('slow');
+
+        $('.preloader-wrapper')
+            .delay(1500)
+            .fadeOut();
+    });
+</script>
+</body>
+</html>
