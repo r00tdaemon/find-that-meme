@@ -46,7 +46,7 @@ def main():
         debug=True,
         db=db
     )
-    app.listen(8080)
+    app.listen(os.environ.get("PORT", 8080))
     tornado.ioloop.IOLoop.current().start()
 
 
