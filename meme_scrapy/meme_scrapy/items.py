@@ -9,5 +9,6 @@ import scrapy
 
 
 class MemeItem(scrapy.Item):
+    url = scrapy.Field()
     meme_type = scrapy.Field()
     img = scrapy.Field()

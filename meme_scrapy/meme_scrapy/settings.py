@@ -90,6 +90,8 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
+CLOSESPIDER_ITEMCOUNT = 1500
+
 MONGO_URI = 'mongodb://{}:{}@ds133856.mlab.com:33856/memes'.format(
     environ.get("MONGOUSER"),
     environ.get("MONGOPASS")

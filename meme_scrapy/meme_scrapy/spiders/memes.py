@@ -1,4 +1,3 @@
-from bson.binary import Binary
 import scrapy
 
 from meme_scrapy.items import MemeItem
@@ -7,12 +6,7 @@ from meme_scrapy.items import MemeItem
 class MemeSpider(scrapy.Spider):
     name = "memes"
     start_urls = [
-        "https://imgflip.com/memetemplates",
-        "https://imgflip.com/memetemplates?page=2",
-        "https://imgflip.com/memetemplates?page=3",
-        "https://imgflip.com/memetemplates?page=4",
-        "https://imgflip.com/memetemplates?page=5",
-
+        "https://imgflip.com/memetemplates?page={}".format(x) for x in range(1, 6)
     ]
 
     def parse(self, response: scrapy.http.Response):
@@ -30,11 +24,16 @@ class MemeSpider(scrapy.Spider):
                     meta={"meme_type": response.url.split("/")[-1]}
                 )
 
+        # next_page = response.xpath("//a[@class='pager-next']/@href").extract_first()
+        # if next_page and "/meme/" in response.url:
+            # urls.append(next_page)
+
         for url in urls:
             yield response.follow(url, self.parse)
 
     def get_image(self, response: scrapy.http.Response):
         item = MemeItem()
+        item["url"] = response.url
         item["meme_type"] = response.meta.get("meme_type")
-        item["img"] = Binary(response.body)
+        item["img"] = response.body
         yield item
