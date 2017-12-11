@@ -26,5 +26,10 @@ visit: localhost:8080
 ### Resources
 tesseract trained data - https://github.com/johnlinp/meme-ocr
 
+#### Future Improvements
+* Can improve image binarization for better ocr, also need to find a way to binarize colored fonts.
+* Train tesseract for identifying impact font with better accuracy.
+* Using pre-trained word embeddings like word2vec/infersent for searching. This wasn't possible to deploy due to huge size of pretrained models
+
 ----
 python version - 3.5.2
