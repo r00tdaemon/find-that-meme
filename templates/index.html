@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{{ static_url('materialize.min.css') }}" media="screen,projection"/>
     <script type="text/javascript" src="{{ static_url('jquery-3.2.1.min.js') }}"></script>
@@ -38,12 +39,10 @@
 
         img {
             height: 335px;
-            max-width: 440px;
         }
 
         .card {
             height: 440px;
-            width: 440px;
         }
 
         .card .card-content {
@@ -78,7 +77,7 @@
 <header>
     <nav class="light-blue lighten-1" role="navigation">
         <div class="nav-wrapper container">
-            <a id="logo-container" href="/" class="brand-logo">Find That Meme!</a>
+            <a id="logo-container" href="/" class="brand-logo container">Find That Meme!</a>
         </div>
     </nav>
 </header>
@@ -120,7 +119,7 @@
         {% for i,meme in enumerate(memes) %}
         <!--{% comment from base64 import b64encode %}-->
         <!--<img src="data:;base64,{% comment b64encode(meme['img']) %}"/>-->
-        <div class="col s12 m4">
+        <div class="col s12 m4 l3">
             <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
                     <img class="activator" src="{{meme['url']}}">
